@@ -98,6 +98,12 @@ class ViewController: UIViewController {
             
         }
         
+        func checkBox(_ i:Int, _ j:Int) -> Bool{
+            
+            return self.sheet[i][j].check()
+            
+        }
+        
         func relabelBox(_ i:Int, _ j:Int, _ label:String) {
             
             self.sheet[i][j].relabel(label)
@@ -113,7 +119,7 @@ class ViewController: UIViewController {
         func checkHorizontal() -> Bool {
             
             for row in 0...4 {
-                if (self.sheet[row][0].check() && self.sheet[row][1].check() && self.sheet[row][2].check() && self.sheet[row][3].check() && self.sheet[row][4].check()) {
+                if (self.checkBox(row, 0) && self.checkBox(row, 1) && self.checkBox(row, 2) && self.checkBox(row, 3) && self.checkBox(row, 4)) {
                     return true
                 }
             }
@@ -124,7 +130,7 @@ class ViewController: UIViewController {
         func checkVertical() -> Bool {
             
             for col in 0...4 {
-                if (self.sheet[0][col].check() && self.sheet[1][col].check() && self.sheet[2][col].check() && self.sheet[3][col].check() && self.sheet[4][col].check()) {
+                if (self.checkBox(0, col) && self.checkBox(1, col) && self.checkBox(2, col) && self.checkBox(3, col) && self.checkBox(4, col)) {
                     return true
                 }
             }
@@ -134,7 +140,7 @@ class ViewController: UIViewController {
         
         func checkDiagonal() -> Bool {
             
-            return ((self.sheet[0][0].check() && self.sheet[1][1].check() && self.sheet[2][2].check() && self.sheet[3][3].check() && self.sheet[4][4].check()) || (self.sheet[0][4].check() && self.sheet[1][3].check() && self.sheet[2][2].check() && self.sheet[3][1].check() && self.sheet[4][0].check()))
+            return ((self.checkBox(0, 0) && self.checkBox(1, 1) && self.checkBox(2, 2) && self.checkBox(3, 3) && checkBox(4, 4)) || (self.checkBox(0, 4) && self.checkBox(1, 3) && self.checkBox(2, 2) && checkBox(3, 1) && self.checkBox(4, 0)))
             
         }
         
