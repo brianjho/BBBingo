@@ -170,25 +170,90 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-    @IBAction func aaPressed(_ sender: Any) {
-        bb1.changeBox(0, 0)
-        aa.setTitle(String(bb1.sheet[0][0].checked), for: UIControl.State.normal)
-    }
-    @IBAction func abPressed(_ sender: Any) {
-        bb1.changeBox(0, 1)
-        ab.setTitle(String(bb1.sheet[0][1].checked), for: UIControl.State.normal)
-    }
-    @IBAction func acPressed(_ sender: Any) {
-        bb1.changeBox(0, 2)
-        ac.setTitle(String(bb1.sheet[0][2].checked), for: UIControl.State.normal)
-    }
-    @IBAction func adPressed(_ sender: Any) {
-        bb1.changeBox(0, 3)
-        ad.setTitle(String(bb1.sheet[0][3].checked), for: UIControl.State.normal)
-    }
-    @IBAction func aePressed(_ sender: Any) {
-        bb1.changeBox(0, 4)
-        ae.setTitle(String(bb1.sheet[0][4].checked), for: UIControl.State.normal)
+    @IBAction func pressed(_ sender: UIButton) {
+        var i: Int!
+        var j: Int!
+        switch sender {
+        case aa:
+            i = 0
+            j = 0
+        case ab:
+            i = 0
+            j = 1
+        case ac:
+            i = 0
+            j = 2
+        case ad:
+            i = 0
+            j = 3
+        case ae:
+            i = 0
+            j = 4
+        case ba:
+            i = 1
+            j = 0
+        case bb:
+            i = 1
+            j = 1
+        case bc:
+            i = 1
+            j = 2
+        case bd:
+            i = 1
+            j = 3
+        case be:
+            i = 1
+            j = 4
+        case ca:
+            i = 2
+            j = 0
+        case cb:
+            i = 2
+            j = 1
+        case cc:
+            i = 2
+            j = 2
+        case cd:
+            i = 2
+            j = 3
+        case ce:
+            i = 2
+            j = 4
+        case da:
+            i = 3
+            j = 0
+        case db:
+            i = 3
+            j = 1
+        case dc:
+            i = 3
+            j = 2
+        case dd:
+            i = 3
+            j = 3
+        case de:
+            i = 3
+            j = 4
+        case ea:
+            i = 4
+            j = 0
+        case eb:
+            i = 4
+            j = 1
+        case ec:
+            i = 4
+            j = 2
+        case ed:
+            i = 4
+            j = 3
+        case ee:
+            i = 4
+            j = 4
+        default:
+            return
+        }
+        bb1.changeBox(i, j)
+        sender.setTitle(String(bb1.sheet[i][j].checked), for: UIControl.State.normal)
+        
     }
 }
-
