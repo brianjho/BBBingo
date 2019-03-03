@@ -88,12 +88,13 @@ class ViewController: UIViewController {
             
         }
         
-        func changeBox(_ i:Int, _ j:Int) {
+        func changeBox(_ i:Int, _ j:Int) -> Bool{
             
             self.sheet[i][j].switchCheck()
             if (self.checkBingo()) {
                 print(self.name + " got a bingo!")
             }
+            return self.sheet[i][j].check()
             
         }
         
@@ -171,89 +172,27 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     @IBAction func pressed(_ sender: UIButton) {
-        var i: Int!
-        var j: Int!
-        switch sender {
-        case aa:
-            i = 0
-            j = 0
-        case ab:
-            i = 0
-            j = 1
-        case ac:
-            i = 0
-            j = 2
-        case ad:
-            i = 0
-            j = 3
-        case ae:
-            i = 0
-            j = 4
-        case ba:
-            i = 1
-            j = 0
-        case bb:
-            i = 1
-            j = 1
-        case bc:
-            i = 1
-            j = 2
-        case bd:
-            i = 1
-            j = 3
-        case be:
-            i = 1
-            j = 4
-        case ca:
-            i = 2
-            j = 0
-        case cb:
-            i = 2
-            j = 1
-        case cc:
-            i = 2
-            j = 2
-        case cd:
-            i = 2
-            j = 3
-        case ce:
-            i = 2
-            j = 4
-        case da:
-            i = 3
-            j = 0
-        case db:
-            i = 3
-            j = 1
-        case dc:
-            i = 3
-            j = 2
-        case dd:
-            i = 3
-            j = 3
-        case de:
-            i = 3
-            j = 4
-        case ea:
-            i = 4
-            j = 0
-        case eb:
-            i = 4
-            j = 1
-        case ec:
-            i = 4
-            j = 2
-        case ed:
-            i = 4
-            j = 3
-        case ee:
-            i = 4
-            j = 4
-        default:
-            return
+        
+        let coord = String(sender.currentTitle!)
+        
+        var start = coord.index(coord.startIndex, offsetBy: 0)
+        var end = coord.index(coord.endIndex, offsetBy: -1)
+        var range = start..<end
+        
+        let i = Int(coord[range])
+        
+        start = coord.index(coord.startIndex, offsetBy: 1)
+        end = coord.index(coord.endIndex, offsetBy: 0)
+        range = start..<end
+        
+        let j = Int(coord[range])
+        
+        let checked = bb1.changeBox(i!, j!)
+        if (checked) {
+            sender.backgroundColor = UIColor.lightGray
+        } else {
+            sender.backgroundColor = UIColor.clear
         }
-        bb1.changeBox(i, j)
-        sender.setTitle(String(bb1.sheet[i][j].checked), for: UIControl.State.normal)
         
     }
 }
