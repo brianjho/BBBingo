@@ -218,6 +218,14 @@
                                     <action selector="pressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cSc-fi-7oe"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5s2-l6-G9w">
+                                <rect key="frame" x="146" y="84" width="82" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Reset Bingo"/>
+                                <connections>
+                                    <action selector="resetBingo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2JN-Um-65v"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -248,6 +256,7 @@
                         <outlet property="ec" destination="Tm6-9Q-Nre" id="Dwp-Lb-cbJ"/>
                         <outlet property="ed" destination="QYX-b6-tRD" id="GGE-bw-YAl"/>
                         <outlet property="ee" destination="jhd-Nf-aS1" id="Z5s-WD-NCv"/>
+                        <outlet property="resetButton" destination="5s2-l6-G9w" id="bge-Qf-BaB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

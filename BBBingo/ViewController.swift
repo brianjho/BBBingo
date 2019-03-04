@@ -40,7 +40,14 @@ class ViewController: UIViewController {
             func switchCheck(){
                 
                 self.checked = !self.checked
-                self.relabel(String(self.checked))
+//                self.relabel(String(self.checked))
+                
+            }
+            
+            func setCheck(_ val:Bool){
+                
+                self.checked = val
+//                self.relabel(String(self.checked))
                 
             }
             
@@ -65,14 +72,10 @@ class ViewController: UIViewController {
             
             self.name = name
             
-            for i in 0...4 {
+            for _ in 0...4 {
                 var row = [BingoBox]()
-                for j in 0...4 {
-                    if (i == 2 && j == 2) {
-                        row += [BingoBox("Free Space", true)]
-                    } else {
-                        row += [BingoBox()]
-                    }
+                for _ in 0...4 {
+                    row += [BingoBox()]
                 }
                 self.sheet += [row]
             }
@@ -94,6 +97,13 @@ class ViewController: UIViewController {
             if (self.checkBingo()) {
                 print(self.name + " got a bingo!")
             }
+            return self.sheet[i][j].check()
+            
+        }
+        
+        func setBox(_ i:Int, _ j:Int, _ val:Bool) -> Bool{
+            
+            self.sheet[i][j].setCheck(val)
             return self.sheet[i][j].check()
             
         }
@@ -171,29 +181,29 @@ class ViewController: UIViewController {
     @IBOutlet weak var ec: UIButton!
     @IBOutlet weak var ed: UIButton!
     @IBOutlet weak var ee: UIButton!
+    @IBOutlet weak var resetButton: UIButton!
     var bb1:BingoSheet = BingoSheet("Brian")
+    var buttons = [[UIButton]]()
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        self.buttons = [[self.aa, self.ab, self.ac, self.ad, self.ae], [self.ba, self.bb, self.bc, self.bd, self.be], [self.ca, self.cb, self.cc, self.cd, self.ce], [self.da, self.db, self.dc, self.dd, self.de], [self.ea, self.eb, self.ec, self.ed, self.ee]]
+        
+//        for buttonRow in self.buttons {
+//            for indivButton in buttonRow {
+//                indivButton.setTitle(":o", for: UIControl.State.normal)
+//            }
+//        }
+
     }
+    
     @IBAction func pressed(_ sender: UIButton) {
         
-        let coord = String(sender.currentTitle!)
-        
-        var start = coord.index(coord.startIndex, offsetBy: 0)
-        var end = coord.index(coord.endIndex, offsetBy: -1)
-        var range = start..<end
-        
-        let i = Int(coord[range])
-        
-        start = coord.index(coord.startIndex, offsetBy: 1)
-        end = coord.index(coord.endIndex, offsetBy: 0)
-        range = start..<end
-        
-        let j = Int(coord[range])
-        
-        let checked = bb1.changeBox(i!, j!)
+        let coord = self.locateButton(sender)
+        let checked = self.bb1.changeBox(coord[0], coord[1])
         if (checked) {
             sender.backgroundColor = UIColor.lightGray
         } else {
@@ -201,4 +211,35 @@ class ViewController: UIViewController {
         }
         
     }
+    
+    @IBAction func resetBingo(_ sender: UIButton) {
+        
+        var checked = false
+        for i in 0...4 {
+            for j in 0...4 {
+                checked = self.bb1.setBox(i, j, false)
+                if (checked) {
+                    buttons[i][j].backgroundColor = UIColor.lightGray
+                } else {
+                    buttons[i][j].backgroundColor = UIColor.clear
+                }
+            }
+        }
+        print("Bingo sheet cleared.")
+        
+    }
+    
+    func locateButton(_ button: UIButton) -> [Int]{
+        
+        for i in 0...4 {
+            for j in 0...4 {
+                if (button == self.buttons[i][j]) {
+                    return [i, j]
+                }
+            }
+        }
+        return [5, 5] // Should never reach here
+        
+    }
+    
 }
