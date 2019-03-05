@@ -250,7 +250,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             self.valueField.text = ""
             self.valueField.isHidden = true
             self.textReplaceButton.isHidden = true
-            self.statusText.text = ""
             self.resetButton.isHidden = false
         }
         
