@@ -226,10 +226,20 @@
                                     <action selector="resetBingo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2JN-Um-65v"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xx5-n6-vuE">
+                                <rect key="frame" x="140" y="46" width="94" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Rename Stuff"/>
+                                <connections>
+                                    <action selector="renameBingoSwitch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m2H-YM-e4J"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="aa" destination="jev-iV-qhw" id="meX-QN-mSB"/>
                         <outlet property="ab" destination="k9M-0Q-wiY" id="QNs-7O-Uc9"/>
@@ -256,6 +266,7 @@
                         <outlet property="ec" destination="Tm6-9Q-Nre" id="Dwp-Lb-cbJ"/>
                         <outlet property="ed" destination="QYX-b6-tRD" id="GGE-bw-YAl"/>
                         <outlet property="ee" destination="jhd-Nf-aS1" id="Z5s-WD-NCv"/>
+                        <outlet property="renameButton" destination="xx5-n6-vuE" id="bEZ-ZH-HV6"/>
                         <outlet property="resetButton" destination="5s2-l6-G9w" id="bge-Qf-BaB"/>
                     </connections>
                 </viewController>

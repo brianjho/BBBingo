@@ -182,8 +182,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var ed: UIButton!
     @IBOutlet weak var ee: UIButton!
     @IBOutlet weak var resetButton: UIButton!
+    @IBOutlet weak var renameButton: UIButton!
     var bb1:BingoSheet = BingoSheet("Brian")
     var buttons = [[UIButton]]()
+    var renameStuff:Bool!
     
     override func viewDidLoad() {
         
@@ -191,6 +193,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         self.buttons = [[self.aa, self.ab, self.ac, self.ad, self.ae], [self.ba, self.bb, self.bc, self.bd, self.be], [self.ca, self.cb, self.cc, self.cd, self.ce], [self.da, self.db, self.dc, self.dd, self.de], [self.ea, self.eb, self.ec, self.ed, self.ee]]
+        self.renameStuff = false
         
 //        for buttonRow in self.buttons {
 //            for indivButton in buttonRow {
@@ -203,11 +206,27 @@ class ViewController: UIViewController {
     @IBAction func pressed(_ sender: UIButton) {
         
         let coord = self.locateButton(sender)
-        let checked = self.bb1.changeBox(coord[0], coord[1])
-        if (checked) {
-            sender.backgroundColor = UIColor.lightGray
+        
+        if (self.renameStuff) {
+            sender.setTitle(":o", for: UIControl.State.normal)
         } else {
-            sender.backgroundColor = UIColor.clear
+            let checked = self.bb1.changeBox(coord[0], coord[1])
+            if (checked) {
+                sender.backgroundColor = UIColor.lightGray
+            } else {
+                sender.backgroundColor = UIColor.clear
+            }
+        }
+        
+    }
+    
+    @IBAction func renameBingoSwitch(_ sender: UIButton) {
+        
+        self.renameStuff = !self.renameStuff
+        if (self.renameStuff) {
+            sender.setTitle("Done", for: UIControl.State.normal)
+        } else {
+            sender.setTitle("Rename Stuff", for: UIControl.State.normal)
         }
         
     }
