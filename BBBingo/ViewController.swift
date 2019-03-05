@@ -208,8 +208,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let coord = self.locateButton(sender)
         
         if (self.renameStuff) {
-            self.valueField.isHidden = false
-            self.textReplaceButton.isHidden = false
             self.buttonToRename = [sender]
         } else {
             let checked = self.bb1.changeBox(coord[0], coord[1])
@@ -244,6 +242,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
             sender.setTitle("Done", for: UIControl.State.normal)
             self.statusText.text = "Select an entry to rename."
             self.resetButton.isHidden = true
+            self.valueField.isHidden = false
+            self.textReplaceButton.isHidden = false
         } else {
             sender.setTitle("Rename Stuff", for: UIControl.State.normal)
             self.buttonToRename = []
@@ -251,6 +251,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             self.valueField.isHidden = true
             self.textReplaceButton.isHidden = true
             self.resetButton.isHidden = false
+            self.view.endEditing(true)
         }
         
     }
