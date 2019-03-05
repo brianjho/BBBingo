@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     
     class BingoSheet {
         
@@ -94,9 +94,6 @@ class ViewController: UIViewController {
         func changeBox(_ i:Int, _ j:Int) -> Bool{
             
             self.sheet[i][j].switchCheck()
-            if (self.checkBingo()) {
-                print(self.name + " got a bingo!")
-            }
             return self.sheet[i][j].check()
             
         }
@@ -183,8 +180,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var ee: UIButton!
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var renameButton: UIButton!
+    @IBOutlet weak var valueField: UITextField!
+    @IBOutlet weak var textReplaceButton: UIButton!
+    @IBOutlet weak var statusText: UITextView!
     var bb1:BingoSheet = BingoSheet("Brian")
     var buttons = [[UIButton]]()
+    var buttonToRename = [UIButton]()
     var renameStuff:Bool!
     
     override func viewDidLoad() {
@@ -194,12 +195,11 @@ class ViewController: UIViewController {
         
         self.buttons = [[self.aa, self.ab, self.ac, self.ad, self.ae], [self.ba, self.bb, self.bc, self.bd, self.be], [self.ca, self.cb, self.cc, self.cd, self.ce], [self.da, self.db, self.dc, self.dd, self.de], [self.ea, self.eb, self.ec, self.ed, self.ee]]
         self.renameStuff = false
+        self.valueField.isHidden = true
+        self.textReplaceButton.isHidden = true
+        self.statusText.text = ""
         
-//        for buttonRow in self.buttons {
-//            for indivButton in buttonRow {
-//                indivButton.setTitle(":o", for: UIControl.State.normal)
-//            }
-//        }
+        self.valueField.delegate = self
 
     }
     
@@ -208,13 +208,30 @@ class ViewController: UIViewController {
         let coord = self.locateButton(sender)
         
         if (self.renameStuff) {
-            sender.setTitle(":o", for: UIControl.State.normal)
+            self.valueField.isHidden = false
+            self.textReplaceButton.isHidden = false
+            self.buttonToRename = [sender]
         } else {
             let checked = self.bb1.changeBox(coord[0], coord[1])
             if (checked) {
                 sender.backgroundColor = UIColor.lightGray
             } else {
                 sender.backgroundColor = UIColor.clear
+            }
+            if (self.bb1.checkBingo()) {
+                self.statusText.text = self.bb1.name + " got a bingo!"
+            }
+        }
+        
+    }
+    
+    @IBAction func replaceText(_ sender: UIButton) {
+        
+        if (self.valueField.text != "") {
+            for currButton in self.buttonToRename {
+                currButton.setTitle(self.valueField.text, for: UIControl.State.normal)
+                self.valueField.text = ""
+                self.statusText.text = "Renamed label."
             }
         }
         
@@ -225,8 +242,16 @@ class ViewController: UIViewController {
         self.renameStuff = !self.renameStuff
         if (self.renameStuff) {
             sender.setTitle("Done", for: UIControl.State.normal)
+            self.statusText.text = "Select an entry to rename."
+            self.resetButton.isHidden = true
         } else {
             sender.setTitle("Rename Stuff", for: UIControl.State.normal)
+            self.buttonToRename = []
+            self.valueField.text = ""
+            self.valueField.isHidden = true
+            self.textReplaceButton.isHidden = true
+            self.statusText.text = ""
+            self.resetButton.isHidden = false
         }
         
     }
@@ -244,7 +269,7 @@ class ViewController: UIViewController {
                 }
             }
         }
-        print("Bingo sheet cleared.")
+        self.statusText.text = "Bingo sheet cleared."
         
     }
     
@@ -258,6 +283,21 @@ class ViewController: UIViewController {
             }
         }
         return [5, 5] // Should never reach here
+        
+    }
+    
+    // Hide keyboard when user touches outside keyboard
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        self.view.endEditing(true)
+        
+    }
+    
+    // Hide keyboard when user presses return
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        self.valueField.resignFirstResponder()
+        return true
         
     }
     
